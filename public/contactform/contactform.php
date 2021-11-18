@@ -1,11 +1,11 @@
 <?php
+
     // Only process POST reqeusts.
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Get the form fields and remove whitespace.
         $name = strip_tags(trim($_POST["name"]));
 				$name = str_replace(array("\r","\n"),array(" "," "),$name);
         $email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
-        $subject = trim($_POST["subject"]);
         $message = trim($_POST["message"]);
 
         // Check that data was sent to the mailer.
@@ -19,6 +19,9 @@
         // Set the recipient email address.
         // FIXME: Update this to your desired email address.
         $recipient = "cole@3hzstudio.com";
+
+        // Set the email subject.
+        $subject = "New contact from $name";
 
         // Build the email content.
         $email_content = "Name: $name\n";
@@ -44,4 +47,5 @@
         http_response_code(403);
         echo "There was a problem with your submission, please try again.";
     }
+
 ?>
